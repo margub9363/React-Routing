@@ -7,6 +7,9 @@ import FullPost from "./FullPost/FullPost";
 import "./Blog.css";
 
 class Blog extends Component {
+  state = {
+    auth: false,
+  };
   render() {
     return (
       <div className="Blog">
@@ -40,8 +43,11 @@ class Blog extends Component {
         <Switch>
           <Route path="/" exact component={Posts} />
           <Redirect from="/23" to="/new-post" />
-          <Route path="/new-post" component={NewPost} />
-          <Route path="/:id" component={FullPost} />
+          {this.state.auth ? (
+            <Route path="/new-post" component={NewPost} />
+          ) : null}
+          {/* <Route path="/:id" component={FullPost} /> */}
+          <Route render={() => <h1>Page not found</h1>} />
         </Switch>
       </div>
     );
